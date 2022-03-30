@@ -39,6 +39,7 @@ const Greetings: React.FC = () => {
          <p>"5. last name": {user.lastName}</p>
          <p>"6. organization": {user.organizationName}</p>
          <p>"7. fullname function": {user2}</p>
+         AFTER WEBPACK UPGRADE
      </div>;
 }
 
