@@ -19,12 +19,14 @@ const DEFAULT_BACKEND_URL = "https://live-examples-proxy.herokuapp.com";
 // add all the gooddata packages that absolutely need to be shared and singletons because of contexts
 // allow sharing @gooddata/sdk-ui-dashboard here so that multiple plugins can share it among themselves
 // this makes redux related contexts work for example
-const gooddataSharePackagesEntries = [...Object.keys(deps), ...Object.keys(peerDeps)]
-    .filter((pkg) => pkg.startsWith("@gooddata"))
-    .reduce((acc, curr) => {
-        acc[curr] = {
+const gooddataSharePackagesEntries = [...Object.entries(deps), ...Object.entries(peerDeps)]
+    .filter(([name]) => name.startsWith("@gooddata"))
+    .reduce((acc, [name, version]) => {
+        acc[name] = {
             singleton: true,
-            requiredVersion: deps[curr],
+            requiredVersion: version,
+            version: version.replace(/\^/, ""),
+            strictVersion: true,
         };
         return acc;
     }, {});
