@@ -61,6 +61,7 @@ module.exports = (_env, argv) => {
         devtool: isProduction ? false : "eval-cheap-module-source-map",
         output: {
             publicPath: "auto",
+            uniqueName: MODULE_FEDERATION_NAME,
         },
         resolve: {
             // Allow to omit extensions when requiring these files
@@ -189,15 +190,24 @@ module.exports = (_env, argv) => {
                          * this is the main entry point providing info about the engine and plugin
                          * this allows us to only load the plugin and/or engine when needed
                          */
-                        [`./${MODULE_FEDERATION_NAME}_ENTRY`]: `./src/${MODULE_FEDERATION_NAME}_entry`,
+                        [`./${MODULE_FEDERATION_NAME}_ENTRY`]: {
+                            import: `./src/${MODULE_FEDERATION_NAME}_entry`,
+                            name: `./${MODULE_FEDERATION_NAME}_ENTRY`,
+                        },
                         /**
                          * this is the entry to the plugin itself
                          */
-                        [`./${MODULE_FEDERATION_NAME}_PLUGIN`]: `./src/${MODULE_FEDERATION_NAME}`,
+                        [`./${MODULE_FEDERATION_NAME}_PLUGIN`]: {
+                            import: `./src/${MODULE_FEDERATION_NAME}`,
+                            name: `./${MODULE_FEDERATION_NAME}_PLUGIN`,
+                        },
                         /**
                          * this is the entry to the engine
                          */
-                        [`./${MODULE_FEDERATION_NAME}_ENGINE`]: `./src/${MODULE_FEDERATION_NAME}_engine`,
+                        [`./${MODULE_FEDERATION_NAME}_ENGINE`]: {
+                            import: `./src/${MODULE_FEDERATION_NAME}_engine`,
+                            name: `./${MODULE_FEDERATION_NAME}_ENGINE`,
+                        },
                     },
 
                     // adds react as shared module
