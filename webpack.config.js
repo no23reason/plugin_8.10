@@ -23,10 +23,8 @@ const gooddataSharePackagesEntries = [...Object.entries(deps), ...Object.entries
     .filter(([name]) => name.startsWith("@gooddata"))
     .reduce((acc, [name, version]) => {
         acc[name] = {
-            singleton: true,
-            requiredVersion: version,
+            requiredVersion: false,
             version: version.replace(/\^/, ""),
-            strictVersion: true,
         };
         return acc;
     }, {});
