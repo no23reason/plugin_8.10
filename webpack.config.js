@@ -23,8 +23,9 @@ const gooddataSharePackagesEntries = [...Object.entries(deps), ...Object.entries
     .filter(([name]) => name.startsWith("@gooddata"))
     .reduce((acc, [name, version]) => {
         acc[name] = {
+            // let Webpack and our engine version validation drive this
+            // this is better than forcing singletons as they cannot be reset once some version is loaded
             requiredVersion: false,
-            version: version.replace(/\^/, ""),
         };
         return acc;
     }, {});
